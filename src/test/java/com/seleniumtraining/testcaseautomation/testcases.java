@@ -1,5 +1,6 @@
 package com.seleniumtraining.testcaseautomation;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,7 @@ public class testcases {
 
 	static String countryxpath;
 	static String country;
+	static String country1;
 	static WebDriver driver;
 	static BrowserInteraction browserClassInstance = new BrowserInteraction();
 
@@ -17,6 +19,7 @@ public class testcases {
 		String url = "https://www.timeanddate.com/calendar/";
 		testcases.countryxpath = "//select[@id='sf_country']";
 		testcases.country = "irand";
+		testcases.country1 = "Ireland";
 
 		testcases.browserClassInstance.setDriver(browser);
 		testcases.driver = testcases.browserClassInstance.getDriver();
@@ -25,26 +28,17 @@ public class testcases {
 	}
 
 	@Test
-	public void verifyDropDown() {
+	public void verifyInvalidCountry() {
+
 		boolean available = testcases.browserClassInstance.selectDropDown(testcases.countryxpath, testcases.country);
-		System.out.println("TestCase1");
-		if (available) {
-			System.out.println(testcases.country + " exist in dropdown");
-		} else {
-			System.out.println(testcases.country + " does not exist in dropdown");
-		}
+		Assert.assertEquals(available, true);
 
 	}
 
 	@Test
-	public void selectDropDown() {
-		System.out.println("TestCase2");
-		boolean available = testcases.browserClassInstance.selectDropDown(testcases.countryxpath, testcases.country);
-		if (available) {
-			System.out.println("Value selected");
-		} else {
-			System.out.println("No value exists");
-		}
+	public void verifyValidCountry() {
+		boolean available = testcases.browserClassInstance.selectDropDown(testcases.countryxpath, testcases.country1);
+		Assert.assertEquals(available, true);
 
 	}
 }
