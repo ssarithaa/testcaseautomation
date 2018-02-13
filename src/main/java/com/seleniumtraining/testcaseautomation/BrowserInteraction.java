@@ -38,7 +38,7 @@ public class BrowserInteraction {
 
 	}
 
-	void selectDropDown(String ddxpath, String valuetoselect) {
+	boolean selectDropDown(String ddxpath, String valuetoselect) {
 		WebElement selectdd = this.driver.findElement(By.xpath(ddxpath));
 		Select s = new Select(selectdd);
 		List<WebElement> listofelements = s.getOptions();
@@ -46,16 +46,14 @@ public class BrowserInteraction {
 		for (WebElement we : listofelements) {
 
 			if (we.getText().equalsIgnoreCase(valuetoselect)) {
-				available = true;
 				s.selectByVisibleText(we.getText());
-				System.out.println("Value " + valuetoselect + " exists in dropdown and selected");
+				available = true;
+
 				break;
 			}
 
 		}
-		if (!available) {
-			System.out.println(valuetoselect + " does not exist in dropdown");
-		}
-	}
+		return available ? true : false;
 
+	}
 }
